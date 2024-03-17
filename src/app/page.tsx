@@ -1,12 +1,18 @@
 import Image from 'next/image'
+import { getCurrentUser } from '@/lib/session'
+import Link from 'next/link'
+import { UserInfo } from '@/types/user'
 
-export default function Home() {
+export default async function Home() {
+  const user = (await getCurrentUser()) as UserInfo
+  console.log(user)
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
+          <code className="font-mono font-bold">app/page.tsx</code>
         </p>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
@@ -37,6 +43,41 @@ export default function Home() {
           height={37}
           priority
         />
+      </div>
+
+      <div>
+        <div className="flex">
+          {user?.avatar ? (
+            <>
+              {' '}
+              Current User:{' '}
+              <Image
+                className="relative rounded-full ml-3 dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+                src={user.avatar}
+                alt="Next.js Logo"
+                width={36}
+                height={36}
+                priority
+              />
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+        {!user ? (
+          <div className="">
+            Next-Auth的demo请到
+            <Link
+              href="/login"
+              className="hover:text-brand underline underline-offset-4"
+            >
+              登录页
+            </Link>
+            体验
+          </div>
+        ) : (
+          <div>SignOut</div>
+        )}
       </div>
 
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
@@ -87,7 +128,7 @@ export default function Home() {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
+            Explore the Next.js 13 playground.
           </p>
         </a>
 
