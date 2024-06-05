@@ -2,11 +2,9 @@ import Image from 'next/image'
 import { getCurrentUser } from '@/lib/session'
 import Link from 'next/link'
 import { UserInfo } from '@/types/user'
-
+import SignOut from '@/components/SignOut'
 export default async function Home() {
   const user = (await getCurrentUser()) as UserInfo
-  console.log(user)
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -76,7 +74,7 @@ export default async function Home() {
             体验
           </div>
         ) : (
-          <div>SignOut</div>
+          <SignOut></SignOut>
         )}
       </div>
 

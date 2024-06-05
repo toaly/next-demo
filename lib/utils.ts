@@ -62,6 +62,16 @@ class ResModel<T> extends BaseModel<T> {
   }
 }
 
+const ok = (f: number): boolean => {
+  if (f == 1) {
+    return false;
+  }
+  if (f == 3) {
+    return true;
+  }
+  return false;
+}
+
 export {
   ResModel,
   cn

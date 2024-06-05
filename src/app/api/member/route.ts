@@ -22,3 +22,17 @@ export async function POST(request: Request, context: { params: any }) {
         return NextResponse.json(ResModel.error("failed to upgrade"), { status: 500 });
     }
 }
+export async function GET(request: Request, context: { params: any }) {
+    try {
+        const post = await prisma.user.findFirst({
+            where: {
+                id: 1
+            }
+        })
+        console.log(post);
+
+        return NextResponse.json(ResModel.success(post));
+    } catch (e) {
+        return NextResponse.json(ResModel.error("failed to upgrade"), { status: 500 });
+    }
+}
